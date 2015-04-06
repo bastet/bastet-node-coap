@@ -1,0 +1,20 @@
+{
+  "name": "bastet-node",
+  "version": "0.0.1",
+  "description": "Node JS CoAP server for Bastet",
+  "main": "server.js",
+  "dependencies": {
+    "bl": "^0.9.4",
+    "coap": "^0.9.1",
+    "coap-packet": "^0.1.12",
+    "lru-cache": "^2.5.0",
+    "readable-stream": "^1.0.33"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Daniel Atkinson",
+  "license": "MIT"
+}

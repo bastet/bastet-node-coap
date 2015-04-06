@@ -1,8 +1,9 @@
 const coap  = require('coap');
+var host = 'localhost';
 
-var names = ["Dan", "Dave", "Luke"];
+var names = ["Dan", "Martin"];
 names.forEach(function(entry) {
-	var request = coap.request('coap://localhost/'+entry);
+	var request = coap.request('coap://'+host+'/'+entry);
 	request.on('response', function(res) {
 		res.pipe(process.stdout)
 	})

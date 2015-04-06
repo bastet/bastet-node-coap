@@ -33,8 +33,8 @@ var router = {
     }
 };
 
-// Define new routes
-router.addRoute('slug', 'printSlug');
+// Define new routes in the format (slug string, function name)
+router.addRoute('slug', 'getSlug');
 router.addRoute('hostname', 'getHostname');
 router.addRoute('ip', 'getIP');
 
@@ -66,7 +66,7 @@ application.getIP = function getIP() {
   return IP;
 };
 
-application.printSlug = function printSlug(urlComponents) {
+application.getSlug = function getSlug(urlComponents) {
     return(urlComponents);
 };
 

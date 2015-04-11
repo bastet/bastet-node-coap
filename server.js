@@ -38,6 +38,14 @@ router.addRoute('slug', 'getSlug');
 router.addRoute('hostname', 'getHostname');
 router.addRoute('ip', 'getIP');
 router.addRoute('cpu', 'getCPUs');
+router.addRoute('memory', 'getRAM');
+router.addRoute('type', 'getType');
+router.addRoute('platform', 'getPlatform');
+router.addRoute('arch', 'getArch');
+router.addRoute('release', 'getRelease');
+router.addRoute('uptime', 'getUptime');
+router.addRoute('load', 'getLoad');
+router.addRoute('network', 'getNetwork');
 
 // Define custom functions
 application.discovery = function exampleFunction() { return(router.routes); };
@@ -73,6 +81,39 @@ application.getSlug = function getSlug(urlComponents) {
 
 application.getCPUs = function getCPUs(urlComponents) {
     return(os.cpus());
+};
+
+application.getRAM = function getRAM(urlComponents) {
+    var RAM = {'total': os.totalmem(), 'free': os.freemem()};
+    return(RAM);
+};
+
+application.getType = function getType(urlComponents) {
+    return(os.type());
+};
+
+application.getPlatform = function getPlatform(urlComponents) {
+    return(os.platform());
+};
+
+application.getArch = function getArch(urlComponents) {
+    return(os.arch());
+};
+
+application.getRelease = function getRelease(urlComponents) {
+    return(os.release());
+};
+
+application.getUptime = function getUptime(urlComponents) {
+    return({'unit': 'seconds', 'value': os.uptime()});
+};
+
+application.getLoad = function getLoad(urlComponents) {
+    return(os.loadavg());
+};
+
+application.getNetwork = function getNetwork(urlComponents) {
+    return(os.networkInterfaces());
 };
 
 // event on recieving a request

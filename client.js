@@ -1,7 +1,7 @@
 const coap = require('coap');
 var host = 'localhost';
 
-var names = ["Dan", "Martin","slug/snail/worm", "hostname", "ip", "cpu", "memory", "type", "platform", "arch", "release", "uptime", "load", "network"];
+var names = ["Dan", "Martin","slug/snail/worm", "hostname", "ip", "cpu", "memory", "type", "platform", "arch", "release", "uptime", "load", "network", ".well-known/core"];
 names.forEach(function(entry) {
 	var request = coap.request('coap://'+host+'/'+entry);
 	request.on('response', function(res) {

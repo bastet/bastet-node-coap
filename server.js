@@ -6,7 +6,7 @@ var os = require('os');
 var ifaces = os.networkInterfaces();
 
 var router = {
-    'routes': [{'url': 'example', 'function': 'exampleFunction'}],
+    'routes': [{'url': '.well-known', 'function': 'discovery'}],
     'getRoutes': function() { return this.routes; },
     'addRoute': function(routeString, routeFunction) {
         this.routes.push({'url': routeString, 'function': routeFunction});
@@ -37,9 +37,10 @@ var router = {
 router.addRoute('slug', 'getSlug');
 router.addRoute('hostname', 'getHostname');
 router.addRoute('ip', 'getIP');
+router.addRoute('cpu', 'getCPUs');
 
 // Define custom functions
-application.exampleFunction = function exampleFunction() { retun('This is an example function.'); };
+application.discovery = function exampleFunction() { return(router.routes); };
 
 application.getHostname = function getHostname() {
     return(os.hostname());
@@ -68,6 +69,10 @@ application.getIP = function getIP() {
 
 application.getSlug = function getSlug(urlComponents) {
     return(urlComponents);
+};
+
+application.getCPUs = function getCPUs(urlComponents) {
+    return(os.cpus());
 };
 
 // event on recieving a request

@@ -101,7 +101,26 @@ application.getCPUPercentage = function getCPUPercentage(urlComponents) {
 };
 
 application.getRAM = function getRAM(urlComponents) {
-    var RAM = {'total': os.totalmem(), 'free': os.freemem()};
+    if(typeof(urlComponents[1]) === 'undefined') {
+       urlComponents[1] = 'byte';
+    }
+    console.log(urlComponents);
+    var RAM, total = os.totalmem(), free = os.freemem();
+    switch (urlComponents[1]) {
+        case 'mb':
+            var divisible = 1024;
+            RAM = {'total': total / divisible, 'free': free / divisible, 'used': (total - free) / divisible};
+            break;
+        case 'percent':
+        case 'percentage':
+            RAM = {'total': ((100 / total) * total), 'free': ((100 / total) * free), 'used': ((100 / total) * (total - free))};
+            break;
+        case 'byte':
+        case 'b':
+        default:
+            RAM = {'total': total, 'free': free, 'used': (total - free)};
+            break;
+    }
     return(RAM);
 };
 

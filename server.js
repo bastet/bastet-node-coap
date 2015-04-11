@@ -38,6 +38,7 @@ router.addRoute('slug', 'getSlug');
 router.addRoute('hostname', 'getHostname');
 router.addRoute('ip', 'getIP');
 router.addRoute('cpu', 'getCPUs');
+router.addRoute('cpu-percentage', 'getCPUPercentage');
 router.addRoute('memory', 'getRAM');
 router.addRoute('type', 'getType');
 router.addRoute('platform', 'getPlatform');
@@ -81,6 +82,22 @@ application.getSlug = function getSlug(urlComponents) {
 
 application.getCPUs = function getCPUs(urlComponents) {
     return(os.cpus());
+};
+
+application.getCPUPercentage = function getCPUPercentage(urlComponents) {
+    var cpus = os.cpus();
+    var output = {};
+    for(var i = 0, len = cpus.length; i < len; i++) {
+        var cpu = cpus[i], total = 0;
+        for(type in cpu.times)
+            total += cpu.times[type];
+        var types = {};
+        for(type in cpu.times) {
+            types[type] = Math.round(100 * cpu.times[type] / total);
+        }
+        output[i] = types;
+    }
+    return(output);
 };
 
 application.getRAM = function getRAM(urlComponents) {

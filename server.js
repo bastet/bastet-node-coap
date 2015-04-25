@@ -1,4 +1,7 @@
 const coap = require('coap');
+const linkFormat = require('h5.linkformat');
+var toString = require('h5.linkformat/lib/toString');
+
 var server = coap.createServer();
 var application = {};
 
@@ -49,7 +52,13 @@ router.addRoute('load', 'getLoad');
 router.addRoute('network', 'getNetwork');
 
 // Define custom functions
-application.discovery = function exampleFunction() { return(router.routes); };
+application.discovery = function discovery() {
+    var links = [];
+    router.routes.forEach(function(route, index){
+        links.push({'href': '/'+route.url, 'rt': index+''});
+    });
+    return(toString(links));
+};
 
 application.getHostname = function getHostname() {
     return(os.hostname());
@@ -157,7 +166,10 @@ server.on('request', function(req, res) {
   var result = router.parseRoute(req.url);
   if(result === 'null' || typeof result === 'undefined') {
     res.end(JSON.stringify('Hello ' + req.url.split('/')[1]) + '\n');
-  } else {
+  } else if(req.url.indexOf("well-known") > -1){
+    res.setOption('Content-Format', 'application/link-format');
+    res.end(result);
+    } else {
     res.end(JSON.stringify(result)+'\n');
   }
 })

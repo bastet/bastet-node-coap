@@ -7,6 +7,7 @@
     "bl": "^0.9.4",
     "coap": "^0.9.1",
     "coap-packet": "^0.1.12",
+    "h5.linkformat": "0.0.0",
     "lru-cache": "^2.5.0",
     "readable-stream": "^1.0.33"
   },
